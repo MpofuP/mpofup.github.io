@@ -1,1 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professor Mpofu — AI Safety Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e8e8f0;
+    --muted: #8888a0;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --accent-dim: rgba(99,102,241,0.12);
+    --accent-glow: rgba(99,102,241,0.25);
+    --green: #34d399;
+    --green-dim: rgba(52,211,153,0.1);
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  ::selection { background: var(--accent); color: white; }
+
+  a { color: var(--accent2); text-decoration: none; transition: opacity 0.2s; }
+  a:hover { opacity: 0.75; }
+
+  .container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 5rem 0 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border2);
+    display: block;
+  }
+
+  .avatar-fallback {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    border: 2px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--accent2);
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    opacity: 0.4;
+  }
+
+  .status-dot {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 14px;
+    height: 14px;
+    background: var(--green);
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+  }
+
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+    color: #fff;
+  }
+
+  .hero .tagline {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .location {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+  }
+
+  .location svg { width: 12px; height: 12px; }
+
+  .links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--muted);
+    background: var(--bg2);
+    transition: border-color 0.2s, color 0.2s;
+    font-weight: 400;
+  }
+
+  .link-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+    opacity: 1;
+  }
+
+  .link-pill svg { width: 13px; height: 13px; }
+
+  /* ── Section ── */
+  .section { padding: 1rem 0; }
+
+  .section-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  /* ── About ── */
+  .about-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .about-text + .about-text { margin-top: 0.75rem; }
+
+  /* ── MirrorProbe ── */
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .project-sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 100px;
+    font-weight: 500;
+    margin-right: 5px;
+    margin-top: 3px;
+  }
+
+  .badge-blue { background: rgba(99,102,241,0.15); color: var(--accent2); border: 1px solid rgba(99,102,241,0.25); }
+  .badge-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+  .badge-gray { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 1.25rem 0;
+  }
+
+  @media (max-width: 500px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .stat-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.4;
+    display: block;
+  }
+
+  .controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .control-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--green);
+    background: var(--green-dim);
+    border: 1px solid rgba(52,211,153,0.2);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+
+  .control-item svg { width: 10px; height: 10px; }
+
+  .github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    padding: 8px 16px;
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    color: var(--text);
+    background: var(--bg3);
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+
+  .github-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    opacity: 1;
+  }
+
+  .github-btn svg { width: 15px; height: 15px; }
+
+  /* ── Build log ── */
+  .log-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .log-item:last-child { border-bottom: none; }
+
+  .log-day {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent2);
+    padding-top: 2px;
+  }
+
+  .log-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .log-result {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 3px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 2.5rem 0 3rem;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  .footer a { color: var(--muted); }
+  .footer a:hover { color: var(--text); opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="avatar-wrap">
+      <img src="profile.jpg" alt="Professor Mpofu" class="avatar"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="avatar-fallback" style="display:none">PM</div>
+      <div class="avatar-ring"></div>
+      <div class="status-dot" title="Active researcher"></div>
+    </div>
+
+    <h1>Professor Mpofu</h1>
+    <p class="tagline">AI Safety Researcher &middot; Mechanistic Interpretability</p>
+    <p class="location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Zimbabwe &middot; Building in public
+    </p>
+
+    <div class="links">
+      <a href="https://github.com/MpofuP" class="link-pill" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.34 9.34 0 0 1 12 7.43c.85 0 1.7.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.27 10.27 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://x.com/KampusLink" class="link-pill" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X / Twitter
+      </a>
+      <a href="https://bsky.app/profile/mirrorprobe0.bsky.social" class="link-pill" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+        Bluesky
+      </a>
+      <a href="https://www.linkedin.com/in/professor-mpofu-70b17b3ab" class="link-pill" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:mpofudumisa4@gmail.com" class="link-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-tag">About</div>
+    <p class="about-text">I'm a self-taught AI safety researcher from Zimbabwe, building mechanistic interpretability work independently. I started from zero — no formal ML background, no institution, just a Windows 10 laptop with 8GB RAM and PowerShell. I build in public every day because I believe the work matters more than the credentials.</p>
+    <p class="about-text" style="margin-top:0.75rem;">My goal is to do small, rigorous, honestly-reported experiments that I can fully defend — and use them to earn a place in formal AI safety research. Currently targeting interpretability roles and fellowships. Everything I build is open source.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-tag">Featured Research</div>
+    <div class="card">
+      <div class="project-header">
+        <div>
+          <div class="project-title">MirrorProbe</div>
+          <div class="project-sub">Does social pressure leave a fingerprint inside a language model's internal activations — separate from what it says out loud?</div>
+          <div style="margin-top:0.6rem;">
+            <span class="badge badge-blue">Mechanistic interpretability</span>
+            <span class="badge badge-blue">Linear probing</span>
+            <span class="badge badge-green">Active</span>
+          </div>
+        </div>
+        <a href="https://github.com/MpofuP/MirrorProbe" target="_blank" class="github-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.34 9.34 0 0 1 12 7.43c.85 0 1.7.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.27 10.27 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+          View repo
+        </a>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem;">Trained linear probes on the residual stream activations of GPT-2 Small and Pythia-160M. Ran four independent control experiments before reporting any result: lexical confound check, cross-topic generalization, output-identical pairs, and cross-architecture replication.</p>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-num">0.92</span>
+          <span class="stat-label">Mean accuracy layers 8–10</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">±0.03</span>
+          <span class="stat-label">Std dev over 10 seeds</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">0.49</span>
+          <span class="stat-label">Shuffled-label control</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Control experiments run</span>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <div class="control-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Lexical confound
+        </div>
+        <div class="control-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Cross-topic generalization
+        </div>
+        <div class="control-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Output-identical pairs
+        </div>
+        <div class="control-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          Cross-architecture (Pythia)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-tag">Build Log</div>
+    <div class="card">
+      <div class="log-item">
+        <div class="log-day">Day 7<br>Jun 25</div>
+        <div>
+          <div class="log-text">Multi-seed rerun across 10 random seeds to test statistical stability.</div>
+          <div class="log-result">0.92 ± 0.03 real · 0.49 ± 0.07 control · signal is stable</div>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="log-day">Day 6<br>Jun 24</div>
+        <div>
+          <div class="log-text">Ran all four planned control experiments in one session.</div>
+          <div class="log-result">Pythia-160M replicates GPT-2 pattern · layers 7–8 most robust</div>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="log-day">Day 5<br>Jun 23</div>
+        <div>
+          <div class="log-text">Scaled dataset from 10 to 50 prompt pairs. Re-ran full pipeline.</div>
+          <div class="log-result">Clear gap emerged: 0.80–0.94 real · 0.46–0.64 control</div>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="log-day">Day 4<br>Jun 22</div>
+        <div>
+          <div class="log-text">First probe trained. Real and control accuracy overlapped too much to claim anything.</div>
+          <div class="log-result">Inconclusive — small sample (n=20). Honest result posted publicly.</div>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="log-day">Day 3<br>Jun 21</div>
+        <div>
+          <div class="log-text">Wrote 50 contrastive prompt pairs. Extracted activations for all 12 layers.</div>
+          <div class="log-result">100 labeled records · 15 topic domains · 8 pressure source types</div>
+        </div>
+      </div>
+      <div class="log-item">
+        <div class="log-day">Day 1–2<br>Jun 19–20</div>
+        <div>
+          <div class="log-text">Set up Python, TransformerLens, PyTorch CPU. First activation extracted from GPT-2 Small. GitHub live.</div>
+          <div class="log-result">Shape [1, 5, 768] — working end to end</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" style="margin-bottom:1rem;">
+    <div class="section-tag">Contact</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:1.25rem;">Open to feedback on MirrorProbe, collaboration on interpretability work, or just connecting with other researchers working on similar problems.</p>
+    <a href="mailto:mpofudumisa4@gmail.com" class="github-btn" style="display:inline-flex;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      mpofudumisa4@gmail.com
+    </a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>Professor Mpofu &middot; AI Safety Researcher &middot; Zimbabwe</p>
+    <p style="margin-top:0.4rem;"><a href="https://github.com/MpofuP/MirrorProbe">MirrorProbe on GitHub</a> &middot; All work open source &middot; Building in public</p>
+  </div>
+</footer>
+
+</body>
+</html>
